@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website</title>
+    <style>
+        /* Base styles */
+        :root {
+            --pink-highlight: #FF69B4;
+            --text-color: #ccd6f6;
+            --bg-dark: #0a192f;
+            --bg-darker: #112240;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto Slab', serif;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+        }
+
+        /* Navigation overlay */
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgba(10, 25, 47, 0.95);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: var(--text-color);
+            display: block;
+            transition: 0.3s;
+        }
+
+        .overlay a:hover, .overlay a:focus {
+            color: var(--pink-highlight);
+        }
+
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+        }
+
+        #openmenu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1;
+            color: var(--text-color);
+        }
+
+        /* Welcome section */
+        #welcome {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-dark);
+        }
+
+        #welcome h1 {
+            font-family: 'Amatic SC', cursive;
+            font-size: 72px;
+            margin: 0;
+            color: var(--pink-highlight);
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        #welcome h3 {
+            margin: 20px 0;
+            color: var(--text-color);
+        }
+
+        #press {
+            width: 50px;
+            margin-top: 30px;
+            cursor: pointer;
+            filter: invert(1);
+            opacity: 0.7;
+        }
+
+        /* About section */
+        #about {
+            padding: 50px 20px;
+            background-color: var(--bg-darker);
+            text-align: center;
+        }
+
+        #about h1 {
+            color: var(--pink-highlight);
+        }
+
+        #self img {
+            width: 200px;
+            border-radius: 50%;
+            margin: 20px 0;
+            border: 3px solid var(--pink-highlight);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+
+        #email, #portScroll {
+            display: inline-block;
+            margin: 20px;
+            color: var(--text-color);
+        }
+
+        #email img, #portScroll img {
+            width: 20px;
+            vertical-align: middle;
+            filter: invert(1);
+        }
+
+        #portScroll a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        #portScroll a:hover {
+            color: var(--pink-highlight);
+        }
+
+        /* Portfolio section
+        #portfolio {
+            padding: 50px 20px;
+            background-color: var(--bg-dark);
+            text-align: center;
+        }
+
+        #portfolio h1 {
+            color: var(--pink-highlight);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumbnail {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+            border-color: var(--pink-highlight);
+        } */
+
+        /* Projects section */
+#projects {
+    padding: 50px 20px;
+    background-color: var(--bg-dark);
+    text-align: center;
+}
+
+#projects h1 {
+    color: var(--pink-highlight);
+}
+
+#projects h4 {
+    color: var(--pink-highlight);
+    margin: 15px 0 5px 0;
+}
+
+#projects p {
+    color: var(--text-color);
+    font-size: 0.9em;
+    margin: 0 0 20px 0;
+}
+
+#projects a {
+    text-decoration: none;
+}
+
+/* Skills section */
+#skills {
+    padding: 50px 20px;
+    background-color: var(--bg-darker);
+    text-align: center;
+}
+
+#skills h1 {
+    color: var(--pink-highlight);
+    margin-bottom: 40px;
+}
+
+.skills-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.skill-pill {
+    padding: 10px 25px;
+    border: 2px solid var(--pink-highlight);
+    border-radius: 25px;
+    color: var(--text-color);
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.skill-pill:hover {
+    background-color: var(--pink-highlight);
+    color: var(--bg-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+        /* Back to top button */
+        #btt {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            filter: invert(1);
+        }
+
+        #btt:hover {
+            opacity: 1;
+        }
+
+        /* Responsive design */
+        @media screen and (max-height: 450px) {
+            .overlay a {font-size: 20px}
+            .overlay .closebtn {
+                font-size: 40px;
+                top: 15px;
+                right: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Rest of your HTML code remains the same -->
+    <!-- Back to top arrow -->
+    <a class="smoothScroll" href="#welcome">
+        <img id="btt" src="/api/placeholder/40/40" alt="Back to top">
+    </a>
+
+    <!-- Navigation -->
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a class="smoothScroll" href="#welcome" onclick="closeNav()">Home</a>
+            <a class="smoothScroll" href="#about" onclick="closeNav()">About</a>
+            <a class="smoothScroll" href="#projects" onclick="closeNav()">Projects</a>
+        </div>
+    </div>
+    <span id="openmenu" onclick="openNav()"><b>Menu</b></span>
+
+    <!-- Welcome section -->
+    <div id="welcome">
+        <h1>joy avre</h1>
+        <h3><b>debugging life one line at a time</b></h3>
+        <a class="smoothScroll" href="#about">
+            <!-- <img id="press" src="/api/placeholder/50/50" alt="scroll down"> -->
+        </a>
+    </div>
+
+    <!-- About section -->
+    <div id="about">
+        <h1>About Me</h1>
+        <!-- <div id="self">
+            <img src="images/JA PS.jpeg" alt="Profile picture">
+            
+        </div> -->
+        <br>
+        <p>
+            hi! i'm joy and i find joy in solving complex problems and building things from scratch.<br><br>
+            When i'm not wrestling with algorithms or debugging code, you can find me experimenting with new technologies and occasionally breaking my local repository.<br><br>
+            i believe in learning through trial, error, and a lot of Stack Overflow searches.
+            <br>
+            (i'm also extremely camera shy)
+        </p>
+        <br><br>
+        <span id="email">
+            <i class="fas fa-envelope"></i> avreusiwo@gmail.com
+        </span>
+        <span id="portScroll">
+            <a class="smoothScroll" href="#projects">
+                <i class="fas fa-code"></i> View My Projects
+            </a>
+        </span>
+        <span id="resumeLink">
+            <a href="path/to/your/resume.pdf" target="_blank">
+                <i class="fas fa-file-alt"></i> Resume
+            </a>
+        </span>
+    </div>
+
+    <!-- Projects section -->
+    <div id="projects">
+        <h1>Projects</h1>
+        <h3>Here are some things I've built! Click to see the code and demos.</h3>
+        <br>
+        <div id="port" class="container">
+            <table>
+                <tr>
+                    <td>
+                        <a href="https://github.com/huda7933/Spark-Hacks25" target="_blank">
+                            <!-- <img class="thumbnail" src="images/ecomarket.jpeg" alt="Project 1"> -->
+                            <h4>EcoMarket</h4>
+                            <p>React + Vite, TailwindCSS, React Router DOM</p>
+                            <p class="project-description">
+                                A sustainable business-to-business marketplace that transforms surplus materials into valuable resources. 
+                                Features an animated landing page with scroll-triggered animations, responsive design, and seamless navigation.
+                                Built during a hackathon to promote sustainable business practices and reduce waste.
+                            </p>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://github.com/avrejoy/ThreeCardPoker" target="_blank">
+                            <!-- <img class="thumbnail" src="images/project2.jpg" alt="Project 2"> -->
+                            <h4>Networked Three Card Poker</h4>
+                            <p>Java, FXML, Socket Programming</p>
+                            <p class="project-description">
+                                Built a multiplayer poker game featuring real-time client-server communication, secure game logic, and an interactive GUI. Players can place bets, make game decisions, and compete against a dealer in a casino-style environment.
+                            </p>
+                        </a>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        <a href="https://github.com/yourusername/project3" target="_blank">
+                            <img class="thumbnail" src="images/project3.jpg" alt="Project 3">
+                            <h4>Project Name</h4>
+                            <p>Tech stack: Java, Spring Boot</p>
+                        </a>
+                    </td>
+                </tr> -->
+            </table>
+        </div>
+    </div>
+
+    <!-- Skills section -->
+<div id="skills">
+    <h1>Skills</h1>
+    <div class="skills-container">
+        <span class="skill-pill">C++</span>
+        
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">HTML/CSS</span>
+        <span class="skill-pill">Java</span>
+        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">Git</span>
+        <!-- <span class="skill-pill">REST APIs</span> -->
+        
+    </div>
+</div>
+
+    <script>
+        // Navigation functions
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('.smoothScroll').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
