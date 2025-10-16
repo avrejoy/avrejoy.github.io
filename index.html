@@ -1,371 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Website</title>
-    <style>
-        /* Base styles */
-        :root {
-            --pink-highlight: #FF69B4;
-            --text-color: #ccd6f6;
-            --bg-dark: #0a192f;
-            --bg-darker: #112240;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joy Avre | Software Engineer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto Slab', serif;
-            background-color: var(--bg-dark);
-            color: var(--text-color);
-        }
+    body {
+      font-family: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #141414;
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.4;
+    }
 
-        /* Navigation overlay */
-        .overlay {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: rgba(10, 25, 47, 0.95);
-            overflow-x: hidden;
-            transition: 0.5s;
-        }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #141414;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e50914;
+      border-radius: 4px;
+    }
 
-        .overlay-content {
-            position: relative;
-            top: 25%;
-            width: 100%;
-            text-align: center;
-            margin-top: 30px;
-        }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 4%;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+    nav.scrolled {
+      background: #141414;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 28px;
+      color: #e50914;
+      font-weight: bold;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: #b3b3b3;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e50914;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-        .overlay a {
-            padding: 8px;
-            text-decoration: none;
-            font-size: 36px;
-            color: var(--text-color);
-            display: block;
-            transition: 0.3s;
-        }
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent 70%, #141414),
+        linear-gradient(120deg, rgba(229, 9, 20, 0.3), transparent),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'><rect fill='%23141414'/><circle cx='200' cy='300' r='300' fill='%23e50914' opacity='0.05'/><circle cx='1700' cy='800' r='400' fill='%23e50914' opacity='0.03'/></svg>");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      padding: 0 4%;
+      position: relative;
+    }
+    .hero-content {
+      max-width: 650px;
+      animation: heroFadeIn 1s ease-out;
+    }
+    @keyframes heroFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+      background: linear-gradient(to right, #fff, #e5e5e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: #e50914;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #b3b3b3;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-        .overlay a:hover, .overlay a:focus {
-            color: var(--pink-highlight);
-        }
+    .hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
 
-        .overlay .closebtn {
-            position: absolute;
-            top: 20px;
-            right: 45px;
-            font-size: 60px;
-        }
+.hero-content {
+  flex: 1 1 400px;
+}
 
-        #openmenu {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1;
-            color: var(--text-color);
-        }
+.hero-image {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-        /* Welcome section */
-        #welcome {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bg-dark);
-        }
+.hero-image img {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #e50914;
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        #welcome h1 {
-            font-family: 'Amatic SC', cursive;
-            font-size: 72px;
-            margin: 0;
-            color: var(--pink-highlight);
-            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
-        }
+.hero-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(229, 9, 20, 0.5);
+}
 
-        #welcome h3 {
-            margin: 20px 0;
-            color: var(--text-color);
-        }
-
-        #press {
-            width: 50px;
-            margin-top: 30px;
-            cursor: pointer;
-            filter: invert(1);
-            opacity: 0.7;
-        }
-
-        /* About section */
-        #about {
-            padding: 50px 20px;
-            background-color: var(--bg-darker);
-            text-align: center;
-        }
-
-        #about h1 {
-            color: var(--pink-highlight);
-        }
-
-        #self img {
-            width: 200px;
-            border-radius: 50%;
-            margin: 20px 0;
-            border: 3px solid var(--pink-highlight);
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
-        }
-
-        #email, #portScroll {
-            display: inline-block;
-            margin: 20px;
-            color: var(--text-color);
-        }
-
-        #email img, #portScroll img {
-            width: 20px;
-            vertical-align: middle;
-            filter: invert(1);
-        }
-
-        #portScroll a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        #portScroll a:hover {
-            color: var(--pink-highlight);
-        }
-
-
-        /* Projects section */
-#projects {
-    padding: 50px 20px;
-    background-color: var(--bg-dark);
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column-reverse;
     text-align: center;
+  }
+  .hero-image img {
+    width: 220px;
+    height: 220px;
+    margin-top: 20px;
+  }
 }
 
-#projects h1 {
-    color: var(--pink-highlight);
-}
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-primary {
+      background: #e50914;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #f40612;
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(229, 9, 20, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(109, 109, 110, 0.7);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover {
+      background: rgba(109, 109, 110, 0.9);
+      transform: scale(1.05);
+    }
 
-#projects h4 {
-    color: var(--pink-highlight);
-    margin: 15px 0 5px 0;
-}
+    .section {
+      padding: 80px 4%;
+      position: relative;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: #e50914;
+    }
 
-#projects p {
-    color: var(--text-color);
-    font-size: 0.9em;
-    margin: 0 0 20px 0;
-}
+    .projects-container {
+      margin-top: 40px;
+      position: relative;
+    }
+    .projects-row {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 20px 0;
+      scrollbar-width: none;
+    }
+    .projects-row::-webkit-scrollbar {
+      display: none;
+    }
+    .project-card {
+      min-width: 300px;
+      background: #2f2f2f;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .project-card:hover {
+      transform: scale(1.05);
+      z-index: 10;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+    .project-thumbnail {
+      width: 100%;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #fff;
+    }
+    .project-info {
+      padding: 20px;
+    }
+    .project-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .project-info p {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      padding: 4px 10px;
+      background: rgba(229, 9, 20, 0.2);
+      color: #e50914;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(229, 9, 20, 0.3);
+    }
 
-#projects a {
-    text-decoration: none;
-}
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .skill-card {
+      background: linear-gradient(
+        135deg,
+        rgba(229, 9, 20, 0.1),
+        rgba(229, 9, 20, 0.05)
+      );
+      border: 1px solid rgba(229, 9, 20, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .skill-card:hover {
+      transform: translateY(-5px);
+      border-color: #e50914;
+      background: linear-gradient(
+        135deg,
+        rgba(229, 9, 20, 0.2),
+        rgba(229, 9, 20, 0.1)
+      );
+      box-shadow: 0 10px 30px rgba(229, 9, 20, 0.2);
+    }
 
-/* Skills section */
-#skills {
-    padding: 50px 20px;
-    background-color: var(--bg-darker);
-    text-align: center;
-}
+    .timeline {
+      position: relative;
+      padding: 20px 0;
+      margin-top: 30px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e50914;
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 70px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .timeline-item:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    .timeline-item:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .timeline-item:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 24px;
+      top: 5px;
+      width: 14px;
+      height: 14px;
+      background: #e50914;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.2);
+    }
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    .timeline-content:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(5px);
+    }
+    .timeline-date {
+      color: #e50914;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .timeline-title {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    .timeline-company {
+      color: #b3b3b3;
+      margin-bottom: 10px;
+    }
 
-#skills h1 {
-    color: var(--pink-highlight);
-    margin-bottom: 40px;
-}
-
-.skills-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.skill-pill {
-    padding: 10px 25px;
-    border: 2px solid var(--pink-highlight);
-    border-radius: 25px;
-    color: var(--text-color);
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-}
-
-.skill-pill:hover {
-    background-color: var(--pink-highlight);
-    color: var(--bg-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
-}
-
-        /* Back to top button */
-        #btt {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 40px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            filter: invert(1);
-        }
-
-        #btt:hover {
-            opacity: 1;
-        }
-
-        /* Responsive design */
-        @media screen and (max-height: 450px) {
-            .overlay a {font-size: 20px}
-            .overlay .closebtn {
-                font-size: 40px;
-                top: 15px;
-                right: 35px;
-            }
-        }
-    </style>
+    .contact {
+      background: linear-gradient(135deg, rgba(229, 9, 20, 0.1), transparent);
+      text-align: center;
+      padding: 100px 4%;
+    }
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .contact p {
+      color: #b3b3b3;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .social-link {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+    }
+    .social-link:hover {
+      background: #e50914;
+      transform: translateY(-5px) rotate(360deg);
+    }
+  </style>
 </head>
 <body>
-    <!-- Back to top arrow -->
-    <a class="smoothScroll" href="#welcome">
-        <img id="btt" src="/api/placeholder/40/40" alt="Back to top">
-    </a>
+  <div class="loader"><div class="loader-text">On today's episode...</div></div>
 
-    <!-- Navigation -->
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a class="smoothScroll" href="#welcome" onclick="closeNav()">Home</a>
-            <a class="smoothScroll" href="#about" onclick="closeNav()">About</a>
-            <a class="smoothScroll" href="#projects" onclick="closeNav()">Projects</a>
-        </div>
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo">What is she building next? </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
-    <span id="openmenu" onclick="openNav()"><b>Menu</b></span>
+  </nav>
 
-    <!-- Welcome section -->
-    <div id="welcome">
-        <h1>joy avre</h1>
-        <h3><b>debugging life one line at a time</b></h3>
-        <a class="smoothScroll" href="#about">
-            <!-- <img id="press" src="/api/placeholder/50/50" alt="scroll down"> -->
-        </a>
-    </div>
-
-    <!-- About section -->
-    <div id="about">
-        <h1>About Me</h1>
-        <br>
-        <p>
-            hi! i'm joy and i find joy in solving complex problems and building things from scratch.<br><br>
-            When i'm not wrestling with algorithms or debugging code, you can find me experimenting with new technologies and occasionally breaking my local repository.<br><br>
-            i believe in learning through trial, error, and a lot of Stack Overflow searches.
-            <br>
-            (i'm also extremely camera shy)
-        </p>
-        <br><br>
-        <span id="email">
-            <i class="fas fa-envelope"></i> avreusiwo@gmail.com
-        </span>
-        <span id="portScroll">
-            <a class="smoothScroll" href="#projects">
-                <i class="fas fa-code"></i> View My Projects
-            </a>
-        </span>
-        <span id="resumeLink">
-            <a href="Joy_Avre_Resume.pdf" target="_blank">
-                <i class="fas fa-file-alt"></i> Resume
-            </a>
-        </span>
+<section class="hero" id="home">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1>Joy Avre</h1>
+      <div class="subtitle">Software Engineer & Product Builder</div>
+      <p>
+        I build human-centered, data-driven applications that connect communities,
+        empower users, and solve real-world problems through clean design and scalable code.
+      </p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">▶ Explore My Work</a>
+        <a href="#contact" class="btn btn-secondary">💌 Get In Touch</a>
+      </div>
     </div>
 
-    <!-- Projects section -->
-    <div id="projects">
-        <h1>Projects</h1>
-        <h3>Here are some things I've built! Click to see the code and demos.</h3>
-        <br>
-        <div id="port" class="container">
-            <table>
-                <tr>
-                    <td>
-                        <a href="https://github.com/huda7933/Spark-Hacks25" target="_blank">
-                            <!-- <img class="thumbnail" src="images/ecomarket.jpeg" alt="Project 1"> -->
-                            <h4>EcoMarket</h4>
-                            <p>React + Vite, TailwindCSS, React Router DOM</p>
-                            <p class="project-description">
-                                A sustainable business-to-business marketplace that transforms surplus materials into valuable resources. 
-                                Features an animated landing page with scroll-triggered animations, responsive design, and seamless navigation.
-                                Built during a hackathon to promote sustainable business practices and reduce waste.
-                            </p>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="https://github.com/avrejoy/ThreeCardPoker" target="_blank">
-                            <!-- <img class="thumbnail" src="images/project2.jpg" alt="Project 2"> -->
-                            <h4>Networked Three Card Poker</h4>
-                            <p>Java, FXML, Socket Programming</p>
-                            <p class="project-description">
-                                Built a multiplayer poker game featuring real-time client-server communication, secure game logic, and an interactive GUI. Players can place bets, make game decisions, and compete against a dealer in a casino-style environment.
-                            </p>
-                        </a>
-                    </td>
-                </tr>
-                
-            </table>
-        </div>
+    <div class="hero-image">
+      <img src="images/JA PS.jpeg" alt="Joy Avre portrait" />
     </div>
+  </div>
+</section>
 
-    <!-- Skills section -->
-<div id="skills">
-    <h1>Skills</h1>
-    <div class="skills-container">
-        <span class="skill-pill">C++</span>
-        
-        <span class="skill-pill">Python</span>
-        <span class="skill-pill">SQL</span>
-        <span class="skill-pill">HTML/CSS</span>
-        <span class="skill-pill">Java</span>
-        <span class="skill-pill">React.js</span>
-        <span class="skill-pill">JavaScript</span>
-        <span class="skill-pill">Node.js</span>
-        <span class="skill-pill">Git</span>
-        <!-- <span class="skill-pill">REST APIs</span> -->
-        
+
+  <section class="section" id="projects">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-container">
+      <div class="projects-row">
+        <!-- PluggedIn -->
+<div class="project-card">
+  <div class="project-thumbnail" style="background-image: url('images/pluggedin.jpeg'); background-size: cover; background-position: center;">
+  </div>
+  <div class="project-info">
+    <h3>PluggedIn</h3>
+    <p>A campus business directory connecting students to verified student-run businesses with search, booking, and reviews.</p>
+    <div class="project-tags">
+      <span class="tag">Next.js</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">PostgreSQL</span>
     </div>
+  </div>
 </div>
 
-    <script>
-        // Navigation functions
-        function openNav() {
-            document.getElementById("myNav").style.width = "100%";
-        }
+<!-- ScamGuard -->
+<div class="project-card">
+  <div class="project-thumbnail" style="background-image: url('images/scamguard.jpeg'); background-size: cover; background-position: center;">
+  </div>
+  <div class="project-info">
+    <h3>ScamGuard</h3>
+    <p>Real-time scam call detection system using NLP and audio processing to flag high-risk conversations instantly.</p>
+    <div class="project-tags">
+      <span class="tag">Python</span>
+      <span class="tag">Flask</span>
+      <span class="tag">Speech-to-Text</span>
+    </div>
+  </div>
+</div>
 
-        function closeNav() {
-            document.getElementById("myNav").style.width = "0%";
-        }
+<!-- EcoMarket -->
+<div class="project-card">
+  <div class="project-thumbnail" style="background-image: url('images/ecomarket.jpeg'); background-size: cover; background-position: center;">
+  </div>
+  <div class="project-info">
+    <h3>EcoMarket</h3>
+    <p>Sustainability exchange platform for businesses to share unused materials and track impact metrics.</p>
+    <div class="project-tags">
+      <span class="tag">React</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </section>
 
-        // Smooth scrolling
-        document.querySelectorAll('.smoothScroll').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+  <section class="section" id="skills">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-card"><div class="skill-icon">🐍</div><div class="skill-name">Python</div></div>
+        <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name">SQL</div></div>
+      <div class="skill-card"><div class="skill-icon">⚛️</div><div class="skill-name">React / Next.js</div></div>
+      <div class="skill-card"><div class="skill-icon">🖥️</div><div class="skill-name">TypeScript / JavaScript</div></div>
+      
+<div class="skill-card"><div class="skill-icon">🧠</div><div class="skill-name">Machine Learning</div></div>
+</div>
+
+</section> <section class="section" id="experience"> <h2 class="section-title">Experience</h2> <div class="timeline"> <div class="timeline-item"> <div class="timeline-dot"></div> <div class="timeline-content"> <div class="timeline-date">Aug 2025 – Present</div> <div class="timeline-title">AI Studio Fellow</div> <div class="timeline-company">Swytch (Break Through Tech)</div> <p> Built ML forecasting models and automated data pipelines analyzing 800+ occupations using BLS and FRED datasets. </p> </div> </div>
+      <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Jun 2025 – Present</div>
+      <div class="timeline-title">Founder & Full-Stack Developer</div>
+      <div class="timeline-company">PluggedIn</div>
+      <p>
+        Created a campus business directory for student entrepreneurs.
+        Designed product roadmap, authentication, and search features for
+        200+ users.
+      </p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Jun 2025 – Aug 2025</div>
+      <div class="timeline-title">Enterprise Architecture Intern</div>
+      <div class="timeline-company">Grant Thornton LLP</div>
+      <p>
+        Designed internal resource centers improving discoverability and
+        reducing redundant support requests by 30%.
+      </p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">May 2025</div>
+      <div class="timeline-title">Software Engineer Sprintern</div>
+      <div class="timeline-company">Kraft Heinz</div>
+      <p>
+        Built an internal full-stack tool with search and filtering using
+        React, SQL, and Node.js in a 3-week Agile sprint.
+      </p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Sep 2023 – Present</div>
+      <div class="timeline-title">Student Ambassador</div>
+      <div class="timeline-company">UIC CHANCE Program</div>
+      <p>
+        Mentored students, coordinated outreach events, and strengthened
+        retention through leadership and academic support.
+      </p>
+    </div>
+  </div>
+</div>
+</section> <section class="contact" id="contact"> <h2>Let’s Connect</h2> <p>Open to full-time roles, collaborations, and innovative product ideas.</p> <a href="mailto:avreusiwo@gmail.com" class="btn btn-primary">📩 Email Me</a> <div class="social-links"> <a href="mailto:avreusiwo@gmail.com" class="social-link">📧</a> <a href="https://linkedin.com/in/joy-avre" class="social-link">💼</a> <a href="https://github.com/avrejoy" class="social-link">🐙</a> <a href="https://avrejoy.github.io" class="social-link">🌐</a> </div> </section> <script> window.addEventListener("scroll", function () { const navbar = document.getElementById("navbar"); if (window.scrollY > 100) navbar.classList.add("scrolled"); else navbar.classList.remove("scrolled"); }); document.querySelectorAll('a[href^="#"]').forEach((anchor) => { anchor.addEventListener("click", function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute("href")); if (target) target.scrollIntoView({ behavior: "smooth", block: "start" }); }); }); setTimeout(() => { document.querySelector(".loader").style.display = "none"; }, 2500); const heroTitle = document.querySelector(".hero h1"); const text = heroTitle.textContent; heroTitle.textContent = ""; let index = 0; function typeWriter() { if (index < text.length) { heroTitle.textContent += text.charAt(index); index++; setTimeout(typeWriter, 100); } } setTimeout(typeWriter, 2600); </script> </body> </html>
